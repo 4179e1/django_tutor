@@ -9,6 +9,9 @@
     - [Init](#init)
     - [Implement View & Add route](#implement-view--add-route)
     - [Test](#test)
+  - [Database](#database)
+    - [DB Init](#db-init)
+    - [Use pymysql with Django](#use-pymysql-with-django)
 
 ## Create Project
 
@@ -121,4 +124,23 @@ polls/
 ```
 # curl http://localhost:8000/polls/
 Hello, world. You're at the polls index.
+```
+
+
+## Database
+
+### DB Init
+
+omitted
+
+### Use pymysql with Django
+
+put the follwing in mysite/settings.pymysql
+
+```python
+import pymysql
+
+#pymysql.version_info = (1, 4, 2, "final", 0)
+pymysql.install_as_MySQLdb()
+
 ```
