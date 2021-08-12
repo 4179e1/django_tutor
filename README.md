@@ -1,3 +1,11 @@
+# Django tutorial
+- [Django tutorial](#django-tutorial)
+  - [Create Project](#create-project)
+    - [Init Project](#init-project)
+    - [Python Virtualenv](#python-virtualenv)
+    - [configuration](#configuration)
+    - [Testing](#testing)
+
 ## Create Project
 
 ### Init Project
@@ -36,3 +44,41 @@ vim requirements.txt
 pip install -r requirements.txt
 ```
 
+### configuration
+
+```
+vim mysite/settings.py
+```
+
+```diff
+$ git diff mysite/settings.py 
+diff --git a/mysite/settings.py b/mysite/settings.py
+index 2f737ba..92e82b8 100644
+--- a/mysite/settings.py
++++ b/mysite/settings.py
+@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-cl*-fu&y+-=65ykkqe_w+1s*r3ye=jz#fdg&8jd!v1pkf+pt1(
+ # SECURITY WARNING: don't run with debug turned on in production!
+ DEBUG = True
+ 
+-ALLOWED_HOSTS = []
++ALLOWED_HOSTS = ['*']
+ 
+ 
+ # Application definition
+@@ -75,8 +75,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
+ 
+ DATABASES = {
+     'default': {
+-        'ENGINE': 'django.db.backends.sqlite3',
+-        'NAME': BASE_DIR / 'db.sqlite3',
++        #    'ENGINE': 'django.db.backends.sqlite3',
++        #    'NAME': BASE_DIR / 'db.sqlite3',
+     }
+ }
+ ```
+
+ ### Testing
+
+```
+python manage.py runserver 0:8000
+```
