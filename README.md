@@ -16,6 +16,8 @@
   - [Add models](#add-models)
     - [Add models](#add-models-1)
     - [Migration](#migration)
+  - [Shell](#shell)
+  - [Admin User](#admin-user)
 
 ## Create Project
 
@@ -159,8 +161,10 @@ python manage.py migrate
 
 ### Add models
 
-1. Define models in polls/models.py
-2. Add PoolsConfig in mysite/settings.py / INSTALLED_APPS
+
+1. Change your models (in models.py).
+1. Run python manage.py makemigrations to create migrations for those changes
+1. Run python manage.py migrate to apply those changes to the database.
 
 ### Migration
 
@@ -170,4 +174,94 @@ Migrations for 'polls':
   polls/migrations/0001_initial.py
     - Create model Question
     - Create model Choice
+```
+
+This create file polls/migrations/0001_initial.py
+
+```sql
+$ python manage.py sqlmigrate polls 0001
+--
+-- Create model Question
+--
+CREATE TABLE `polls_question` (`id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY, `question_text` varchar(200) NOT NULL, `pub_data` datetime(6) NOT NULL);
+--
+-- Create model Choice
+--
+CREATE TABLE `polls_choice` (`id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY, `choice_text` varchar(200) NOT NULL, `votes` integer NOT NULL, `question_id` bigint NOT NULL);
+ALTER TABLE `polls_choice` ADD CONSTRAINT `polls_choice_question_id_c5b4b260_fk_polls_question_id` FOREIGN KEY (`question_id`) REFERENCES `polls_question` (`id`);
+```
+
+This show the incoming changes to the DB.
+
+```
+# python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, polls, sessions
+Running migrations:
+  Applying polls.0001_initial... OK
+```
+
+
+## Shell
+
+```python
+>>> from polls.models import Choice, Question  # Import the model classes we just wrote.
+
+# No questions are in the system yet.
+>>> Question.objects.all()
+<QuerySet []>
+
+# Create a new Question.
+# Support for time zones is enabled in the default settings file, so
+# Django expects a datetime with tzinfo for pub_date. Use timezone.now()
+# instead of datetime.datetime.now() and it will do the right thing.
+>>> from django.utils import timezone
+>>> q = Question(question_text="What's new?", pub_date=timezone.now())
+
+# Save the object into the database. You have to call save() explicitly.
+>>> q.save()
+
+# Now it has an ID.
+>>> q.id
+1
+
+# Access model field values via Python attributes.
+>>> q.question_text
+"What's new?"
+>>> q.pub_date
+datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
+
+# Change values by changing the attributes, then calling save().
+>>> q.question_text = "What's up?"
+>>> q.save()
+
+# objects.all() displays all the questions in the database.
+>>> Question.objects.all()
+<QuerySet [<Question: Question object (1)>]>
+```
+
+## Admin User
+
+```
+python manage.py createsuperuser
+```
+
+Then go to http://localhost:8000/admin/
+
+Make Polls admin
+
+```diff
+ git diff polls/admin.py 
+diff --git a/polls/admin.py b/polls/admin.py
+index 8c38f3f..d0e6a57 100644
+--- a/polls/admin.py
++++ b/polls/admin.py
+@@ -1,3 +1,7 @@
+ from django.contrib import admin
+ 
+ # Register your models here.
++
++from .models import Question
++
++admin.site.register(Question)
 ```

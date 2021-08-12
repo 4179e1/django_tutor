@@ -5,5 +5,5 @@ reqs:
 	pip install -r requirements.txts
 
 migrate:
-	#python manage.py migrate
 	python manage.py makemigrations polls
+	python manage.py migrate
