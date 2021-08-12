@@ -6,6 +6,9 @@
     - [configuration](#configuration)
     - [Testing](#testing)
   - [Create Polls APP](#create-polls-app)
+    - [Init](#init)
+    - [Implement View & Add route](#implement-view--add-route)
+    - [Test](#test)
 
 ## Create Project
 
@@ -86,6 +89,8 @@ python manage.py runserver 0:8000
 
 ## Create Polls APP
 
+### Init
+
 ```
 # python manage.py startapp polls
 # git diff
@@ -103,4 +108,17 @@ polls/
 ├── models.py
 ├── tests.py
 └── views.py
+```
+
+### Implement View & Add route
+
+1. add view logic in polls/views.py
+1. add route in polls polls/urls.py, which need created manually
+1. add route to pools in mysite/urls.py
+
+### Test
+
+```
+# curl http://localhost:8000/polls/
+Hello, world. You're at the polls index.
 ```
