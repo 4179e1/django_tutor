@@ -12,6 +12,10 @@
   - [Database](#database)
     - [DB Init](#db-init)
     - [Use pymysql with Django](#use-pymysql-with-django)
+    - [Test Database](#test-database)
+  - [Add models](#add-models)
+    - [Add models](#add-models-1)
+    - [Migration](#migration)
 
 ## Create Project
 
@@ -143,4 +147,27 @@ import pymysql
 #pymysql.version_info = (1, 4, 2, "final", 0)
 pymysql.install_as_MySQLdb()
 
+```
+
+### Test Database
+
+```
+python manage.py migrate
+```
+
+## Add models
+
+### Add models
+
+1. Define models in polls/models.py
+2. Add PoolsConfig in mysite/settings.py / INSTALLED_APPS
+
+### Migration
+
+```
+# python manage.py makemigrations polls
+Migrations for 'polls':
+  polls/migrations/0001_initial.py
+    - Create model Question
+    - Create model Choice
 ```
