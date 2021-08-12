@@ -5,6 +5,7 @@
     - [Python Virtualenv](#python-virtualenv)
     - [configuration](#configuration)
     - [Testing](#testing)
+  - [Create Polls APP](#create-polls-app)
 
 ## Create Project
 
@@ -81,4 +82,25 @@ index 2f737ba..92e82b8 100644
 
 ```
 python manage.py runserver 0:8000
+```
+
+## Create Polls APP
+
+```
+# python manage.py startapp polls
+# git diff
+# 
+```
+no changes to original mysite
+
+```
+polls/
+├── admin.py
+├── apps.py
+├── __init__.py
+├── migrations
+│   └── __init__.py
+├── models.py
+├── tests.py
+└── views.py
 ```
